@@ -140,5 +140,6 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
-
+##
 /Agricultura/appAgricultura/key.py
+/Agricultura/appAgricultura/credentials
