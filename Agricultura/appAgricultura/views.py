@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from .models import Ubicacion
 from .key import get_apikey
+from .conect import pronostico
 
 def get_api_data(request):
     # Es importante utilizar correctamente las API keys en las URLs, sin corchetes '{}' de más.
@@ -97,3 +98,15 @@ def iniciarSesion(request):
     else:
         respuesta = {"mensaje": "fallo", "status": "success"}
         return Response(respuesta, status=status.HTTP_200_OK)
+
+@api_view(['POST'])   
+@csrf_exempt   
+def pronosticoHelada(request):
+    data = json.loads(request.body)
+    dia = data['dia']
+    mensaje = pronostico(dia)
+    humedad = str(round(mensaje['Humedad del Suelo (%)'], 2))
+    temperatura = str(round(mensaje['Temperatura de la Zona (°C)'], 2))
+    prediccion = str(int(mensaje['predicciones']))
+    respuesta = {"mensaje": "exito", "temperatura" : temperatura, "humedad" : humedad, "prediccion": prediccion, "status": "success"}
+    return Response(respuesta, status=status.HTTP_200_OK)

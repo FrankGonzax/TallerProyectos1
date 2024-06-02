@@ -7,18 +7,16 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://agriculturaapp-39eb8-default-rtdb.firebaseio.com/'
 })
 
-def pronostico():
-    ref = db.reference('Pronostico/2')
-    return ref.get()
-
-def pronostico2():
+def pronostico(dia):
+    d = int(dia)
     ref = db.reference('Pronostico')
     try:
         data = ref.get()
         if data is None:
             print("No data found at the specified reference.")
-        return data
+        ultima_llave = list(data.keys())[-d]
+        ultimos_datos = data[ultima_llave]
+        return ultimos_datos
     except Exception as e:
         print("Error retrieving data:", e)
         return None
-

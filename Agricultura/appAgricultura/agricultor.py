@@ -1,15 +1,5 @@
 from .models import Cuenta, Ubicacion
 
-class Info():
-    msg = str
-    ubicacion = str
-    temperatura = str
-    recomendacion = str
-
-
-
-
-
 def crearCuenta(cuenta, password, ubicacion):
     try:
         Cuenta.objects.get(cuenta = cuenta)
